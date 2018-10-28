@@ -14,12 +14,14 @@ t_list	*new_link(char *r1, char *r2)
 	return (ret);
 }
 
-t_list	*new_room(char *name)
+void	new_room(t_room	**ret, char *name, int x, int y)
 {
-	t_list	*ret;
-
-	ret = ft_lstnew(name, (ft_strlen(name) + 1) * sizeof(char *));
-	return (ret);
+	if ((*ret = ft_memalloc(sizeof(t_room))) == NULL)
+		exit(-1);
+	(*ret)->name = ft_strdup(name);
+	(*ret)->next = NULL;
+	(*ret)->x = x;
+	(*ret)->y = y;
 }
 
 void	init_lemin(t_lemin **lemin)
@@ -34,15 +36,49 @@ void	init_lemin(t_lemin **lemin)
 	(*lemin)->mode = ANTS_N;
 }
 
-void	add_room(t_lemin *lemin, char *name)
+void	add_room(t_lemin *lemin, char *name, int x, int y)
 {
-	t_list	*room;
+	t_room	*room;
+	t_room	*tmp;
 
-	room = new_room(name);
+	new_room(&room, name, x, y);
+	room->status = lemin->mode;
 	if (lemin->rooms == NULL)
 		lemin->rooms = room;
+	else if (lemin->mode == START)
+	{
+		tmp = lemin->rooms;
+		room->next = tmp;
+		lemin->rooms = room;
+	}
 	else
-		ft_lstappend(lemin->rooms, room);
+	{
+		tmp = lemin->rooms;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = room;
+	}
+}
+
+void	delete_last_link(t_lemin *lemin)
+{
+	t_list	*tmp;
+	t_list	*prev;
+
+	tmp = lemin->links;
+	prev = NULL;
+	while (tmp->next != NULL)
+	{
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	free(tmp->content);
+	free(tmp);
+	if (prev == NULL)
+		lemin->links = NULL;
+	else
+		prev->next = NULL;
+	return ;
 }
 
 void	add_link(t_lemin *lemin, char *r1, char *r2)
