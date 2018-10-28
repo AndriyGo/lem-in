@@ -6,7 +6,7 @@
 /*   By: agordiyc <agordiyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 20:02:24 by agordiyc          #+#    #+#             */
-/*   Updated: 2017/12/10 17:34:55 by agordiyc         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:00:16 by agordiyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
-
-typedef struct		s_reader
-{
-	int				fd;
-	char			**output;
-}					t_reader;
 
 /*
 ** MANDATORY FUNCTIONS
@@ -115,6 +109,7 @@ int					*ft_range(int min, int max);
 void				ft_strniter(char *s, void (*f)(char *), size_t n);
 void				ft_strniteri(char *s, void (*f)(unsigned int, char *), \
 					size_t n);
+
 /*
 ** PROJECT FUNCTIONS
 */

@@ -6,7 +6,7 @@
 #    By: agordiyc <agordiyc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 23:11:16 by agordiyc          #+#    #+#              #
-#    Updated: 2017/11/29 23:32:40 by agordiyc         ###   ########.fr        #
+#    Updated: 2018/10/28 17:30:13 by agordiyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ SRCS	= 	ft_atoi.c \
 			ft_itoa.c \
 			ft_lstadd.c \
 			ft_lstappend.c \
-			ft_lstcpy.c \
 			ft_lstdel.c \
 			ft_lstdelone.c \
+			ft_lstdup.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
 			ft_lstnew.c \
