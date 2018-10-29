@@ -14,10 +14,12 @@
 
 void	ft_lstappend(t_list *alst, t_list *new)
 {
+	t_list	*tmp;
+
 	if ((new == NULL) || (alst == NULL))
 		return ;
-	if (alst->next != NULL)
-		ft_lstappend(alst->next, new);
-	else
-		alst->next = new;
+	tmp = alst;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new;
 }

@@ -39,7 +39,9 @@ int	disregard_comment(t_lemin *lemin, char *line)
 			(lemin->op != NONE))
 			return (0);
 		else
+		{
 			lemin->op = START;
+		}
 	}
 	else if (ft_strcmp(line, "##end") == 0)
 	{
@@ -47,7 +49,9 @@ int	disregard_comment(t_lemin *lemin, char *line)
 			(lemin->mode != ROOMS) || (lemin->op != NONE))
 			return (0);
 		else
+		{
 			lemin->op = END;
+		}
 	}
 	return (1);
 }
@@ -146,7 +150,7 @@ int	room_exists(t_lemin *lemin, char *name, int x, int y)
 	{
 		if (ft_strcmp(((char *)list->name), name) == 0)
 			return (1);
-		if ((list->x == x) || (list->y == y))
+		if ((list->x == x) && (list->y == y))
 			return (1);
 		list = list->next;
 	}
@@ -216,10 +220,28 @@ int	read_link(t_lemin *lemin, char *line)
 
 void	stop_or_solve(t_lemin *lemin)
 {
+	t_room	*tmp;
+	int		valid;
+
 	if ((lemin->start_found == 0) || (lemin->end_found == 0) || \
 		(lemin->rooms == NULL) || (lemin->links == NULL))
 		die();
-	printf("WILL TRY TO SOLVE\n");
+	find_solution(lemin);
+	valid = 0;
+	tmp = lemin->solution;
+	while (tmp != NULL)
+	{
+		if (tmp->status == END)
+		{
+			valid = 1;
+			break;
+		}
+		tmp = tmp->next;
+	}
+	if (valid)
+		print_solution(lemin);
+	else
+		die();
 }
 
 int	main(void)
@@ -230,7 +252,7 @@ int	main(void)
 
 	init_lemin(&lemin);
 	stop = 0;
-	while (get_next_line(1, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
 		if (line[0] == '#')
 			stop = (disregard_comment(lemin, line) == 0);
@@ -255,5 +277,6 @@ int	main(void)
 			break;
 	}
 	stop_or_solve(lemin);
+	sleep(3);
 	return (0);
 }

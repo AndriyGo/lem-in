@@ -31,6 +31,7 @@ void	init_lemin(t_lemin **lemin)
 	(*lemin)->ant_count = 0;
 	(*lemin)->rooms = NULL;
 	(*lemin)->links = NULL;
+	(*lemin)->solution = NULL;
 	(*lemin)->op = NONE;
 	(*lemin)->end_found = 0;
 	(*lemin)->mode = ANTS_N;
@@ -42,10 +43,10 @@ void	add_room(t_lemin *lemin, char *name, int x, int y)
 	t_room	*tmp;
 
 	new_room(&room, name, x, y);
-	room->status = lemin->mode;
+	room->status = lemin->op;
 	if (lemin->rooms == NULL)
 		lemin->rooms = room;
-	else if (lemin->mode == START)
+	else if (lemin->op == START)
 	{
 		tmp = lemin->rooms;
 		room->next = tmp;
@@ -58,6 +59,21 @@ void	add_room(t_lemin *lemin, char *name, int x, int y)
 			tmp = tmp->next;
 		tmp->next = room;
 	}
+}
+
+void	room_append(t_room **room, t_room *new)
+{
+	t_room	*tmp;
+
+	if (*room == NULL)
+	{
+		*room = new;
+		return;
+	}
+	tmp = *room;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new;
 }
 
 void	delete_last_link(t_lemin *lemin)

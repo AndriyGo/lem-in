@@ -25,6 +25,8 @@ typedef struct		s_lemin
 {
 	t_room			*rooms;
 	t_list			*links;
+	t_room			*solution;
+	t_room			*stack;
 	int				ant_count;
 	int				op;
 	int				end_found;
@@ -37,5 +39,6 @@ void				add_room(t_lemin *lemin, char *name, int x, int y);
 void				add_link(t_lemin *lemin, char *r1, char *r2);
 void				die(void);
 void				delete_last_link(t_lemin *lemin);
+void				children_of_room(t_lemin *lemin, t_room *room, t_room **children);
 
 #endif

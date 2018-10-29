@@ -2,7 +2,8 @@ NAME	=	lem-in
 
 SRCS	= 	main.c \
 			data_initializer.c \
-			outputter.c
+			outputter.c \
+			solver.c
 
 OBJS	=	$(SRCS:.c=.o)
 
